@@ -21,7 +21,7 @@ SimpleDelayAudioProcessor::SimpleDelayAudioProcessor()
                      #endif
                        ), treeState(*this, nullptr, juce::Identifier("PARAMETERS"),
                            { std::make_unique<juce::AudioParameterFloat>("delayTime", "Delay (samples)", 0.f, 5000.f, 1000.f),
-                             std::make_unique<juce::AudioParameterFloat>("feedback", "Feedback 0-1", 0.f, 0.99f, 0.3f) })
+                             std::make_unique<juce::AudioParameterFloat>("feedback", "Feedback", 0.f, 0.99f, 0.3f) })
 #endif
 {
     treeState.addParameterListener("delayTime", this);

@@ -50,7 +50,7 @@ void SimpleDelayAudioProcessorEditor::paint (juce::Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll(juce::Colours::grey);
     g.setColour(juce::Colours::white);
-    g.setFont(25);
+    g.setFont(20);
     g.drawFittedText("Simple Delay", 150, 20, 130, 30, juce::Justification::centred, 1, 0.0f);
 }
 
