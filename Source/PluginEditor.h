@@ -36,7 +36,8 @@ private:
     juce::Slider dryWetSlider;
     
 
-    juce::Label delayTimeLabel;
+    juce::Label delayTimeLLabel;
+    juce::Label delayTimeRLabel;
     juce::Label feedbackLabel;
     juce::Label dryWetLabel;
 

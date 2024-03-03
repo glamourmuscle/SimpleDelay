@@ -61,7 +61,9 @@ private:
     juce::AudioProcessorValueTreeState treeState;
     juce::dsp::DelayLine<float> mDelayLine{ 22050 };
     
-    float mDelayTime = 1000.0f;
+    float mDelayLTime = 1000.0f;
+    float mDelayRTime = 1000.0f;
+    float mDryWet = 0.50f;
     float mFeedback = 0.3f;
 
     //==============================================================================

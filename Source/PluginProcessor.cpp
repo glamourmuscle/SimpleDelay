@@ -20,12 +20,14 @@ SimpleDelayAudioProcessor::SimpleDelayAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        ), treeState(*this, nullptr, juce::Identifier("PARAMETERS"),
-                           { std::make_unique<juce::AudioParameterFloat>("delayTime", "Delay (samples)", 0.f, 5000.f, 1000.f),
+                           { std::make_unique<juce::AudioParameterFloat>("delayLTime", "Left Delay (samples)", 0.f, 5000.f, 1000.f), std::make_unique<juce::AudioParameterFloat>("delayRTime", "Right Delay (samples)", 0.f, 5000.f, 1000.f), std::make_unique<juce::AudioParameterFloat>("dryWetValue", "Dry/Wet", 0.f, 1.00f, 0.5f),
                              std::make_unique<juce::AudioParameterFloat>("feedback", "Feedback", 0.f, 0.99f, 0.3f) })
 #endif
 {
-    treeState.addParameterListener("delayTime", this);
-    treeState.addParameterListener("feedback", this);
+    treeState.addParameterListener("delayLTime", this);
+    treeState.addParameterListener("delayRTime", this);
+    treeState.addParameterListener("dryWetValue", this);
+treeState.addParameterListener("feedback", this);
 }
 
 SimpleDelayAudioProcessor::~SimpleDelayAudioProcessor()
@@ -157,14 +159,35 @@ void SimpleDelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
+        float delayTemp = mDelayLTime;
+        
+        if (channel == 0)
+        {
+            mDelayLine.setDelay(mDelayLTime);
+           delayTemp = mDelayLTime;
+            
+        }
+        
+        else if (channel == 1)
+        {
+            mDelayLine.setDelay(mDelayRTime);
+           delayTemp = mDelayRTime;
+        }
+        
+        
+        
         auto* channelData = buffer.getWritePointer (channel);
+        
         
         for (int i = 0; i < buffer.getNumSamples(); i++)
         {
+            
+            
+           
             float in = channelData[i];
-            float temp = mDelayLine.popSample(channel, mDelayTime);
+            float temp = mDelayLine.popSample(channel, delayTemp);
             mDelayLine.pushSample(channel, in + (temp * mFeedback));
-            channelData[i] = (in + temp) * 0.5f;
+            channelData[i] = ((in * (1- mDryWet))  + (temp * mDryWet));
             
         }
 
@@ -208,11 +231,24 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 void SimpleDelayAudioProcessor::parameterChanged(const juce::String& parameterID, float newValue)
 {
     
-    if (parameterID == "delayTime")
+    if (parameterID == "delayLTime")
         
     {
-        mDelayTime = newValue;
-        mDelayLine.setDelay(newValue);
+        mDelayLTime = newValue;
+       // mDelayLine.setDelay(newValue);
+        
+    }
+    
+    else if (parameterID == "delayRTime")
+    {
+        mDelayRTime = newValue;
+    //    mDelayLine.setDelay(newValue);
+        
+    }
+    
+    else if (parameterID == "dryWetValue")
+    {
+        mDryWet = newValue;
         
     }
     
