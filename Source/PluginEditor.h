@@ -30,13 +30,19 @@ private:
     SimpleDelayAudioProcessor& audioProcessor;
     juce::AudioProcessorValueTreeState& treeState;
 
-    juce::Slider delayTimeSlider;
+    juce::Slider delayTimeLSlider;
+    juce::Slider delayTimeRSlider;
     juce::Slider feedbackSlider;
+    juce::Slider dryWetSlider;
+    
 
     juce::Label delayTimeLabel;
     juce::Label feedbackLabel;
+    juce::Label dryWetLabel;
 
-    std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> delayTimeValue;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> delayTimeLValue;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> delayTimeRValue;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> dryWetValue;
     std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> feedbackValue;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleDelayAudioProcessorEditor)

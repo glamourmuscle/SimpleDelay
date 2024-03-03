@@ -18,12 +18,18 @@ SimpleDelayAudioProcessorEditor::SimpleDelayAudioProcessorEditor (SimpleDelayAud
     setSize(400, 280);
 
     // Delay time
-    delayTimeValue = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(treeState, "delayTime", delayTimeSlider);
-    delayTimeSlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    delayTimeSlider.setRange(0.0f, 5000.0f, 1.0f);
-    delayTimeSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxRight, true, 75, 25);
-    addAndMakeVisible(&delayTimeSlider);
+    delayTimeLValue = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(treeState, "delayLTime", delayTimeLSlider);
+    delayTimeLSlider.setSliderStyle(juce::Slider::LinearHorizontal);
+    delayTimeLSlider.setRange(0.0f, 5000.0f, 1.0f);
+    delayTimeLSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxRight, true, 75, 25);
+    addAndMakeVisible(&delayTimeLSlider);
 
+    delayTimeRValue = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(treeState, "delayRTime", delayTimeRSlider);
+    delayTimeLSlider.setSliderStyle(juce::Slider::LinearHorizontal);
+    delayTimeLSlider.setRange(0.0f, 5000.0f, 1.0f);
+    delayTimeLSlider.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxRight, true, 75, 25);
+    addAndMakeVisible(&delayTimeLSlider);
+    
     addAndMakeVisible(delayTimeLabel);
     delayTimeLabel.setText("Delay time (samples)", juce::dontSendNotification);
     delayTimeLabel.attachToComponent(&delayTimeSlider, false);
