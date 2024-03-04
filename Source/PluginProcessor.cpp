@@ -20,7 +20,7 @@ SimpleDelayAudioProcessor::SimpleDelayAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        ), treeState(*this, nullptr, juce::Identifier("PARAMETERS"),
-                           { std::make_unique<juce::AudioParameterFloat>("delayLTime", "Left Delay (samples)", 0.f, 5000.f, 1000.f), std::make_unique<juce::AudioParameterFloat>("delayRTime", "Right Delay (samples)", 0.f, 5000.f, 1000.f), std::make_unique<juce::AudioParameterFloat>("dryWetValue", "Dry/Wet", 0.f, 1.00f, 0.5f),
+                           { std::make_unique<juce::AudioParameterFloat>("delayLTime", "Left Delay (samples)", 0.f, 10000.f, 1000.f), std::make_unique<juce::AudioParameterFloat>("delayRTime", "Right Delay (samples)", 0.f, 10000.f, 1000.f), std::make_unique<juce::AudioParameterFloat>("dryWetValue", "Dry/Wet", 0.f, 1.00f, 0.5f),
                              std::make_unique<juce::AudioParameterFloat>("feedback", "Feedback", 0.f, 0.99f, 0.3f) })
 #endif
 {
